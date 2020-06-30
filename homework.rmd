@@ -1,0 +1,19 @@
+---
+title: "MinION Phylogenetic <i>Dictyocotyle coeliaca</i>"
+subtitle: 'University of Graz, Institut for Biology, AMEB2020'
+author: "Hannes Oberreiter, Anna Dünser"
+date: "July-August, 2020"
+output:
+  bookdown::pdf_document2:
+    toc: false
+bibliography: bib.bibtex
+abstract: We found nothing at all ;)
+---
+
+# abstract
+
+# Introduction
+
+# Results
+
+# Discussion
