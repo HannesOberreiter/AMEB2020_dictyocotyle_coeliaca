@@ -49,16 +49,16 @@ Phylogenetic tree analysis was done with public available data from [NCBI Genban
 \begin{tabular}{@{}llll@{}}
 \toprule
 Taxa & \multicolumn{1}{c}{Group} & \multicolumn{1}{c}{Description} & \multicolumn{1}{c}{web/local} \\ \midrule
-\textit{Schmidtea mediterranea} & 'Turbellaria' & \href{https://www.ncbi.nlm.nih.gov/assembly/GCA\_002600895.1} & web \\
-\textit{Macrostomum lignano} & 'Turbellaria' & \href{https://www.ncbi.nlm.nih.gov/assembly/GCA\_002269645.1} & web \\
-\textit{Taenia solium} & Cestoda & \href{https://www.ncbi.nlm.nih.gov/assembly/GCA\_001870725.1} & web \\
-\textit{Echinococcus granulosus} & Cestoda & \href{https://www.ncbi.nlm.nih.gov/assembly/GCF\_000524195.1} & web \\
-\textit{Hymenolepis microstoma} & Cestoda & \href{https://www.ncbi.nlm.nih.gov/assembly/GCA\_000469805.3} & web \\
-\textit{Schistosoma mansoni} & Trematoda & \href{https://www.ncbi.nlm.nih.gov/assembly/GCF\_000237925.1} & web \\
-\textit{Clonorchis sinensis} & Trematoda & \href{https://www.ncbi.nlm.nih.gov/assembly/GCA\_003604175.1} & web \\
-\textit{Opisthorchis viverrini} & Trematoda & \href{https://www.ncbi.nlm.nih.gov/assembly/GCF\_000715545.1} & web \\
-\textit{Protopolystoma xenopodi} & Polyopisthocotylea & \href{https://www.ncbi.nlm.nih.gov/assembly/GCA\_900617795.1/} & web \\
-\textit{Gyrodactylus salaris} & Monopisthocotylea & \href{https://www.ncbi.nlm.nih.gov/assembly/GCA\_000715275.1} & web \\
+\textit{Schmidtea mediterranea} & 'Turbellaria' & \url{https://www.ncbi.nlm.nih.gov/assembly/GCA\_002600895.1} & web \\
+\textit{Macrostomum lignano} & 'Turbellaria' & \url{https://www.ncbi.nlm.nih.gov/assembly/GCA\_002269645.1} & web \\
+\textit{Taenia solium} & Cestoda & \url{https://www.ncbi.nlm.nih.gov/assembly/GCA\_001870725.1} & web \\
+\textit{Echinococcus granulosus} & Cestoda & \url{https://www.ncbi.nlm.nih.gov/assembly/GCF\_000524195.1} & web \\
+\textit{Hymenolepis microstoma} & Cestoda & \url{https://www.ncbi.nlm.nih.gov/assembly/GCA\_000469805.3} & web \\
+\textit{Schistosoma mansoni} & Trematoda & \url{https://www.ncbi.nlm.nih.gov/assembly/GCF\_000237925.1} & web \\
+\textit{Clonorchis sinensis} & Trematoda & \url{https://www.ncbi.nlm.nih.gov/assembly/GCA\_003604175.1} & web \\
+\textit{Opisthorchis viverrini} & Trematoda & \url{https://www.ncbi.nlm.nih.gov/assembly/GCF\_000715545.1} & web \\
+\textit{Protopolystoma xenopodi} & Polyopisthocotylea & \url{https://www.ncbi.nlm.nih.gov/assembly/GCA\_900617795.1/} & web \\
+\textit{Gyrodactylus salaris} & Monopisthocotylea & \url{https://www.ncbi.nlm.nih.gov/assembly/GCA\_000715275.1} & web \\
 \textit{Diclidophora denticulata} & Polyopisthocotylea & - & local \\
 \textit{Eudiplozoon nipponicum} & Polyopisthocotylea & - & local \\ \bottomrule
 \end{tabular}
