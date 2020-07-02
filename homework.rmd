@@ -1,5 +1,5 @@
 ---
-title: "MinION Phylogenetic <i>Dictyocotyle coeliaca</i>"
+title: "Using Nanopore Technologies (ONT) minION technology to sequence <i>Dictyocotyle coeliaca</i> and align in phylogenetic"
 subtitle: 'University of Graz, Institut for Biology, AMEB2020'
 author: "Hannes Oberreiter, Anna Dünser"
 date: "July-August, 2020"
@@ -12,30 +12,58 @@ abstract: We found nothing at all ;)
 
 # Introduction
 
-The Parasitic Flatworm *Dictyocotyle coeliaca* is since a long time a very fascinating and misterious paraist not only because its rarity also because the special morphological features [@dawes1948].
+The Parasitic Flatworm *Dictyocotyle coeliaca* (Nybelin, 1941) is  a very fascinating parasite due to its rarity and its special morphological features, distinguihing if from the common cloacal parasite *Calicotyle kroyeri* [@dawes1948; dawes1958].
+Isn't it the only monogenean inside the body cavity?
 
-
-It is living in the coelom of its host and was found multiple times on the liver of the host [@dawes1948].
+It is living in the cœlom of its host and was found multiple times on the liver of the host [@dawes1948].
 
 Possible hosts were the parasit was found are all deep sea rays (deep sea?). Example: starry ray *Raja radiata*, *Raja lintea* [@dawes1948].
 
 
-At the moment there are multiple competing hypotheses about the correct evolurionary history of the neodermatan, a sister-group of planthemites [@lockyer2003; perkins2010; littlewood1999; olson2001; laumer2014].
+At the moment there are multiple competing hypotheses about the correct evolurionary history of the neodermata, a sister-group of planthemites [@lockyer2003; perkins2010; littlewood1999; olson2001; laumer2014].
 
-With our species and a third generation technology of NGS with Oxford Nanopore. which belongs to the group of Monophistocolea and two other species from practical course which belong to the same group, our analyzing in accomponation of a practical course at the university of graz with a third gerneration sequencing technology from nanopore. 
+With our species and a third generation technology of NGS with Oxford Nanopore. which belongs to the group of Monophistocolea and two other species from practical course which belong to the same group, our analyzing during a practical course at the University of Graz with a third gerneration sequencing technology from nanopore. 
 
 # Material and Methods
 
 ## DNA extraction and library prep
-DNA was extracted using xxxx. The DNA concentration and length distribution were assessed with a TapeStation using Genomic DNA screen tapes and a Qubit 4 Flourometer using the broad range assay. 
-To reach the recommended concentration of 1µg of high molecular weight DNA two samples were pooled before the library prep. 
-Library prep was done using the Nanopore Ligation Sequencing kit (SQK-LSK109). To enrich sequences that are 3kb long or longer, we used the long frame Buffer following the protocol. Lab Protocol Version XXX which can be found on a github repositroy which was used over the course in which we sequenced this parasite: [AMEB 2020 practical](https://github.com/chrishah/AMEB_2020_practical).
+
+The species samples were found on host *Raja radiata* in Norway.
+
+The DNA concentration after extracting and length distribution were assessed with a TapeStation using Genomic DNA screen tapes and a Qubit 4 Flourometer using the broad range assay resulting in an concentration of 69.6 ng/µl. 
+
+To reach the recommended concentration of 1µg of high molecular weight DNA two sample specimen (20µl B164-65, 21µl B161-63) were pooled before the library prep.
+
+Library prep was done using the Nanopore Ligation Sequencing kit (SQK-LSK109). To enrich sequences that are 3kb long or longer, we used the long frame Buffer following the protocol. Lab Protocol Version `GDE_9063_v109_revT_14Aug2019` which can be found on a github repositroy which was used over the course in which we sequenced this parasite: [AMEB 2020 practical](https://github.com/chrishah/AMEB_2020_practical).
 The concentration of the preped library was assessed using a Qubit 4 Flourometer. 
+Quality Assesment in Library preperation was done according to the lab manual the first Qubit fluorometer measurement did result in 12.4ng/µl (total 744ng) and second 47.2ng/µl (total 660.8ng).
 
-## Sequencing
-For sequencing we used the Oxford Nanopore Technologies (ONT) minION Platform. The input concentration of our samples were ..
+For sequencing we used the Oxford Nanopore Technologies (ONT) minION Platform. The loading concentration of DNA in our samples was 566.4ng.
 
-## Analysis 
+Phylogenetic tree analysis was done with public available data from [NCBI Genbank](https://www.ncbi.nlm.nih.gov) and assemblies from the University of Graz, please refere to \@ref(tab:list-samples).
+
+\begin{table}[]
+\centering
+\caption{List of taxa for phylogenetic tree building}
+\label{tab:list-samples}
+\begin{tabular}{@{}llll@{}}
+\toprule
+Taxa & \multicolumn{1}{c}{Group} & \multicolumn{1}{c}{Description} & \multicolumn{1}{c}{web/local} \\ \midrule
+\textit{Schmidtea mediterranea} & 'Turbellaria' & \href{https://www.ncbi.nlm.nih.gov/assembly/GCA\_002600895.1} & web \\
+\textit{Macrostomum lignano} & 'Turbellaria' & \href{https://www.ncbi.nlm.nih.gov/assembly/GCA\_002269645.1} & web \\
+\textit{Taenia solium} & Cestoda & \href{https://www.ncbi.nlm.nih.gov/assembly/GCA\_001870725.1} & web \\
+\textit{Echinococcus granulosus} & Cestoda & \href{https://www.ncbi.nlm.nih.gov/assembly/GCF\_000524195.1} & web \\
+\textit{Hymenolepis microstoma} & Cestoda & \href{https://www.ncbi.nlm.nih.gov/assembly/GCA\_000469805.3} & web \\
+\textit{Schistosoma mansoni} & Trematoda & \href{https://www.ncbi.nlm.nih.gov/assembly/GCF\_000237925.1} & web \\
+\textit{Clonorchis sinensis} & Trematoda & \href{https://www.ncbi.nlm.nih.gov/assembly/GCA\_003604175.1} & web \\
+\textit{Opisthorchis viverrini} & Trematoda & \href{https://www.ncbi.nlm.nih.gov/assembly/GCF\_000715545.1} & web \\
+\textit{Protopolystoma xenopodi} & Polyopisthocotylea & \href{https://www.ncbi.nlm.nih.gov/assembly/GCA\_900617795.1/} & web \\
+\textit{Gyrodactylus salaris} & Monopisthocotylea & \href{https://www.ncbi.nlm.nih.gov/assembly/GCA\_000715275.1} & web \\
+\textit{Diclidophora denticulata} & Polyopisthocotylea & - & local \\
+\textit{Eudiplozoon nipponicum} & Polyopisthocotylea & - & local \\ \bottomrule
+\end{tabular}
+\end{table}
+
 
 # Results
 
@@ -133,6 +161,23 @@ For sequencing we used the Oxford Nanopore Technologies (ONT) minION Platform. T
   langid = {english},
   number = {3}
 }
+
+
+@article{dawes1958,
+  title = {The {{Enigmatical Trematode}} “{{Dictyocotyle}} Coeliaca”},
+  author = {Dawes, Ben and Griffiths, Ivor},
+  date = {1958-10},
+  journaltitle = {Nature},
+  shortjournal = {Nature},
+  volume = {182},
+  pages = {1033--1034},
+  issn = {0028-0836, 1476-4687},
+  doi = {10.1038/1821033a0},
+  langid = {english},
+  number = {4641}
+}
+
+
 
 
 
