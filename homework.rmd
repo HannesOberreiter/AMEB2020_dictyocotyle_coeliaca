@@ -12,33 +12,20 @@ abstract: We found nothing at all ;)
 
 # Introduction
 
-The Parasitic Flatworm *Dictyocotyle coeliaca* (Nybelin, 1941) is  a very fascinating parasite due to its rarity and its special morphological features, distinguihing if from the common cloacal parasite *Calicotyle kroyeri* [@dawes1948; dawes1958].
-Isn't it the only monogenean inside the body cavity?
+The Parasitic Flatworm *Dictyocotyle coeliaca* (Nybelin, 1941) is a very fascinating parasite due to its rarity and its special morphological features, distinguihing it from the common cloacal parasite *Calicotyle kroyeri* [@dawes1948; dawes1958]. (Isn't it the only monogenean inside the body cavity?) It is living in the cœlom of its host and was found multiple times on the liver of the host [@dawes1948].Possible hosts were the parasit was found are all deep sea rays for example *Raja radiata* and *Raja lintea* [@dawes1948].
 
-It is living in the cœlom of its host and was found multiple times on the liver of the host [@dawes1948].
+Our species of interest belongs to the subclass of Monopisthocotylea. The correct systematic position is still under active discussion. At the moment there are multiple competing hypotheses about the correct evolutionary history of the neodermata, a sister-group of planthemites [@lockyer2003; perkins2010; littlewood1999; olson2001; laumer2014].
 
-Possible hosts were the parasit was found are all deep sea rays (deep sea?). Example: starry ray *Raja radiata*, *Raja lintea* [@dawes1948].
-
-
-At the moment there are multiple competing hypotheses about the correct evolurionary history of the neodermata, a sister-group of planthemites [@lockyer2003; perkins2010; littlewood1999; olson2001; laumer2014].
-
-With our species and a third generation technology of NGS with Oxford Nanopore. which belongs to the group of Monophistocolea and two other species from practical course which belong to the same group, our analyzing during a practical course at the University of Graz with a third gerneration sequencing technology from nanopore. 
+In an advanced evolutionary practice course at the University of Graz, we did sequence three different species with NGS Oxford Nanopore, which all belong into the same group. With the help of these new gained data and additional open access data from NCBI Genbank we want to shed some more light into the controverse phylogeny of neodermata.
 
 # Material and Methods
 
 ## DNA extraction and library prep
 
-The species samples were found on host *Raja radiata* in Norway.
+The species samples were found on host *Raja radiata* in Norway. The DNA concentration after extracting and length distribution were assessed with a TapeStation using Genomic DNA screen tapes and a Qubit 4 Flourometer using the broad range assay resulting in an concentration of 69.6 ng/µl. To reach the recommended concentration of 1µg of high molecular weight DNA two sample specimen (20µl B164-65, 21µl B161-63) were pooled before the library prep. Library prep was done using the Nanopore Ligation Sequencing kit (SQK-LSK109). To enrich sequences that are 3kb long or longer, we used the long frame Buffer following the protocol. Lab Protocol Version `GDE_9063_v109_revT_14Aug2019` which can be found on a github repositroy which was used over the course in which we sequenced the parasite: [AMEB 2020 practical](https://github.com/chrishah/AMEB_2020_practical).
+The concentration of the preped library was assessed using a Qubit 4 Flourometer. Quality Assesment in Library preperation was done according to the lab manual the first Qubit fluorometer measurement did result in 12.4ng/µl (total 744ng) and second 47.2ng/µl (total 660.8ng). For sequencing we used the Oxford Nanopore Technologies (ONT) minION Platform. The loading concentration of DNA in our samples was 566.4ng.
 
-The DNA concentration after extracting and length distribution were assessed with a TapeStation using Genomic DNA screen tapes and a Qubit 4 Flourometer using the broad range assay resulting in an concentration of 69.6 ng/µl. 
-
-To reach the recommended concentration of 1µg of high molecular weight DNA two sample specimen (20µl B164-65, 21µl B161-63) were pooled before the library prep.
-
-Library prep was done using the Nanopore Ligation Sequencing kit (SQK-LSK109). To enrich sequences that are 3kb long or longer, we used the long frame Buffer following the protocol. Lab Protocol Version `GDE_9063_v109_revT_14Aug2019` which can be found on a github repositroy which was used over the course in which we sequenced this parasite: [AMEB 2020 practical](https://github.com/chrishah/AMEB_2020_practical).
-The concentration of the preped library was assessed using a Qubit 4 Flourometer. 
-Quality Assesment in Library preperation was done according to the lab manual the first Qubit fluorometer measurement did result in 12.4ng/µl (total 744ng) and second 47.2ng/µl (total 660.8ng).
-
-For sequencing we used the Oxford Nanopore Technologies (ONT) minION Platform. The loading concentration of DNA in our samples was 566.4ng.
+## Public Gene Data
 
 Phylogenetic tree analysis was done with public available data from [NCBI Genbank](https://www.ncbi.nlm.nih.gov) and assemblies from the University of Graz, please refere to \@ref(tab:list-samples).
 
@@ -64,8 +51,30 @@ Taxa & \multicolumn{1}{c}{Group} & \multicolumn{1}{c}{Description} & \multicolum
 \end{tabular}
 \end{table}
 
+## Genome Assembly
+
+For reproductibility all of the used software were can be found in docker containers. Assembly and Tree Building was done on a cluster server with singularity.
+
+In addition to the minION reads we also used local available Illumina reads of high quality. Illumina reads were quality corrected with TRIMMOMATIC^[docker://chrishah/trimmomatic-docker:0.38], settings see \@ref(exm:trim-settings)
+
+```{example, trim-settings}
+Settings for Trimmomatic used for quality control of Illumina data
+```
+```bash
+trimmomatic PE -phred33
+<input-output files>
+ILLUMINACLIP:/usr/src/Trimmomatic/0.38/Trimmomatic-0.38/adapters/TruSeq3-PE-2.fa:2:30:10 \
+LEADING:30 TRAILING:30 SLIDINGWINDOW:5:20 MINLEN:500
+```
+
+Assembly of contigs and scaffolds was done with PLATANUS^[docker://chrishah/platanus:v1.2.4], standard settings. Long reads from our ONT lab work were used in combination with the resulting scaffolds with pyScaf^[docker://chrishah/pyscaf-docker] logic to improve the quality of the assembly.
+
+On all samples including our sequenced samples a BUSCO^[docker://chrishah/busco-docker:v3.1.0] analysis was done for gene labeling and quality control. The Metazoa `metazoa_odb9` lineage dataset was used with mode `genome` and flag for self-training August optimization mode (`--long`), because our given non-model species. TODO was ist die sp flag?
+
 
 # Results
+
+The quality analysis with BUSCO did show lower completness for the assembly which was improved with ONP reads. Therefore, we used only the given Illumina Sequences. In further analysis.
 
 
 # Discussion
