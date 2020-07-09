@@ -3,12 +3,24 @@ title: "Using Nanopore Technologies (ONT) minION technology to sequence <i>Dicty
 subtitle: 'University of Graz, Institut for Biology, AMEB2020'
 author: "Hannes Oberreiter, Anna Dünser"
 date: "July-August, 2020"
+header-includes:
+    - \usepackage{hyperref}
+    - \usepackage{float}
+    - \usepackage{caption}
+    - \captionsetup[figure]{font=small}
 output:
   bookdown::pdf_document2:
     toc: false
+    citation_package: biblatex
 bibliography: bib.bibtex
+link-citations: true
 abstract: Using public available gene data and self extracted data with NGS technology to tertermine the systematic position in the neodermata. BUSO complete genes were used for tree building. 
 ---
+
+```{r global_options, include=FALSE}
+# this tells r to fix images on positions were I want them and don't let LaTeX shuffle them around like crazy
+knitr::opts_chunk$set(fig.pos = 'H')
+```
 
 # Introduction
 
@@ -55,11 +67,11 @@ Taxa & \multicolumn{1}{c}{Group} & \multicolumn{1}{c}{Description} & \multicolum
 
 For reproductibility all of the used software were can be found in docker containers. Assembly and tree Building was done on a cluster server, steps are reproducible because we facilitated docker^[https://www.docker.com/] container with singularity [@kurtzer2017].
 
-In addition to the minION reads we also used local available Illumina reads of high quality. Illumina reads were quality corrected with TRIMMOMATIC^[docker://chrishah/trimmomatic-docker:0.38], settings see \@ref(exm:trim-settings) [@bolger2014].
+In addition to the minION reads we also used local available Illumina reads of high quality. Illumina reads were quality corrected with TRIMMOMATIC^[docker://chrishah/trimmomatic-docker:0.38], settings see \@ref(code:trim-settings) [@bolger2014].
 
-```{example, trim-settings}
-Settings for Trimmomatic used for quality control of Illumina data
-```
+\begin{small}
+Code: (\#code:trim-settings) Settings for Trimmomatic used for quality control of Illumina data.
+\end{small}
 ```bash
 trimmomatic PE -phred33
 <input-output files>
@@ -83,7 +95,7 @@ The quality analysis with BUSCO did show lower completness for the assembly whic
 
 The problems why our minION reads did not improve the quality of the Illumina reads can be explained with a fragmented reads in the minION process. Because of the low length of fragments we did stop the minION sequencen early to save ressources for other reads. These resulted in "short'isch" reads and low coverage of this reads and no advandage for the illumina sequences was gained by this.
 
-
+# References
 
 
 
@@ -118,17 +130,16 @@ The problems why our minION reads did not improve the quality of the Illumina re
 }
 
 @article{dawes1948,
-	Author = {DAWES, BEN},
+	Author = {Dawes, Ben},
 	Da = {1948/04/01},
 	Date-Added = {2020-06-30 13:45:27 +0200},
 	Date-Modified = {2020-06-30 13:45:27 +0200},
 	Doi = {10.1038/161642c0},
-	Id = {DAWES1948},
 	Isbn = {1476-4687},
 	Journal = {Nature},
 	Number = {4095},
 	Pages = {642--643},
-	Title = {A Rare C{\oe}lom-Dwelling Trematode},
+	title = {A Rare C{\oe}lom-Dwelling Trematode},
 	Ty = {JOUR},
 	Volume = {161},
 	Year = {1948},
