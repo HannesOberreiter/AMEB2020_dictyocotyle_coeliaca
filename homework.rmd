@@ -20,13 +20,14 @@ abstract: Using public available gene data and self extracted data with NGS tech
 ```{r global_options, include=FALSE}
 # this tells r to fix images on positions were I want them and don't let LaTeX shuffle them around like crazy
 knitr::opts_chunk$set(fig.pos = 'H')
+library("tidyverse")
 ```
 
 # Introduction
 
-The Parasitic Flatworm *Dictyocotyle coeliaca* (Nybelin, 1941) is a very fascinating parasite due to its rarity and its special morphological features, distinguihing it from the common cloacal parasite *Calicotyle kroyeri* [@dawes1948; dawes1958]. (Isn't it the only monogenean inside the body cavity?) It is living in the cœlom of its host and was found multiple times on the liver of the host [@dawes1948].Possible hosts were the parasit was found are all deep sea rays for example *Raja radiata* and *Raja lintea* [@dawes1948].
+The Parasitic Flatworm *Dictyocotyle coeliaca* (Nybelin, 1941) is a very fascinating parasite due to its rarity and its special morphological features, distinguihing it from the common cloacal parasite *Calicotyle kroyeri* [@dawes1948; @dawes1958]. (Isn't it the only monogenean inside the body cavity?) It is living in the cœlom of its host and was found multiple times on the liver of the host [@dawes1948].Possible hosts were the parasit was found are all deep sea rays for example *Raja radiata* and *Raja lintea* [@dawes1948].
 
-Our species of interest belongs to the subclass of Monopisthocotylea. The correct systematic position is still under active discussion. At the moment there are multiple competing hypotheses about the correct evolutionary history of the neodermata, a sister-group of planthemites [@lockyer2003; perkins2010; littlewood1999; olson2001; laumer2014].
+Our species of interest belongs to the subclass of Monopisthocotylea. The correct systematic position is still under active discussion. At the moment there are multiple competing hypotheses about the correct evolutionary history of the neodermata, a sister-group of planthemites [@lockyer2003; @perkins2010; @littlewood1999; @olson2001; @laumer2014].
 
 In an advanced evolutionary practice course at the University of Graz, we did sequence three different species with NGS Oxford Nanopore, which all belong into the same group. With the help of these new gained data and additional open access data from NCBI Genbank we want to shed some more light into the controverse phylogeny of neodermata.
 
@@ -39,29 +40,23 @@ The concentration of the preped library was assessed using a Qubit 4 Flourometer
 
 ## Public Gene Data
 
-Phylogenetic tree analysis was done with public available data from [NCBI Genbank](https://www.ncbi.nlm.nih.gov) and assemblies from the University of Graz, please refere to \@ref(tab:list-samples).
+Phylogenetic tree analysis was done with public available data from [NCBI Genbank](https://www.ncbi.nlm.nih.gov) and assemblies from the University of Graz, please refere to \@ref(tab:samples).
 
-\begin{table}[]
-\centering
-\caption{List of taxa for phylogenetic tree building}
-\label{tab:list-samples}
-\begin{tabular}{@{}llll@{}}
-\toprule
-Taxa & \multicolumn{1}{c}{Group} & \multicolumn{1}{c}{Description} & \multicolumn{1}{c}{web/local} \\ \midrule
-\textit{Schmidtea mediterranea} & 'Turbellaria' & \url{https://www.ncbi.nlm.nih.gov/assembly/GCA\_002600895.1} & web \\
-\textit{Macrostomum lignano} & 'Turbellaria' & \url{https://www.ncbi.nlm.nih.gov/assembly/GCA\_002269645.1} & web \\
-\textit{Taenia solium} & Cestoda & \url{https://www.ncbi.nlm.nih.gov/assembly/GCA\_001870725.1} & web \\
-\textit{Echinococcus granulosus} & Cestoda & \url{https://www.ncbi.nlm.nih.gov/assembly/GCF\_000524195.1} & web \\
-\textit{Hymenolepis microstoma} & Cestoda & \url{https://www.ncbi.nlm.nih.gov/assembly/GCA\_000469805.3} & web \\
-\textit{Schistosoma mansoni} & Trematoda & \url{https://www.ncbi.nlm.nih.gov/assembly/GCF\_000237925.1} & web \\
-\textit{Clonorchis sinensis} & Trematoda & \url{https://www.ncbi.nlm.nih.gov/assembly/GCA\_003604175.1} & web \\
-\textit{Opisthorchis viverrini} & Trematoda & \url{https://www.ncbi.nlm.nih.gov/assembly/GCF\_000715545.1} & web \\
-\textit{Protopolystoma xenopodi} & Polyopisthocotylea & \url{https://www.ncbi.nlm.nih.gov/assembly/GCA\_900617795.1/} & web \\
-\textit{Gyrodactylus salaris} & Monopisthocotylea & \url{https://www.ncbi.nlm.nih.gov/assembly/GCA\_000715275.1} & web \\
-\textit{Diclidophora denticulata} & Polyopisthocotylea & - & local \\
-\textit{Eudiplozoon nipponicum} & Polyopisthocotylea & - & local \\ \bottomrule
-\end{tabular}
-\end{table}
+
+```{r samples, echo=FALSE}
+t <- read.delim("data/public.tsv")
+t$species <- paste("*", t$species, "*", sep="")
+t$description <- str_replace_all(t$description, "https://www.ncbi.nlm.nih.gov/", "")
+t$description <- str_replace_all(t$description, "-", "local sample")
+
+n <- c("Taxa", "Group", "Source (https://www.ncbi.nlm.nih.gov/*)")
+knitr::kable(
+  t[,1:3], booktabs = TRUE,
+  caption = 'List of taxa for phylogenetic tree building',
+  col.names = n, format = "markdown"
+)
+
+```
 
 ## Genome Assembly
 
@@ -85,8 +80,45 @@ On all samples including our sequenced samples a BUSCO^[docker://chrishah/busco-
 
 The phylogenetic tree building was archived with a `snakemake` workflow [@koster2012]. The workflow was generated by Christoph Hahn from the University of Graz and can be accced via GitHub Repository^[https://github.com/chrishah/AMEB_HPC_Snakemake]. It uses a custom script to extract ortholog and paralog genes from BUSCO, seuqnece aligning with clustalW, post alignment rating and masking with ALISCORE and ALICUT and raxml for protein gene model finding of each gene and single tree building, post-filtering with ncbi-BLAST and FASconCAT to generate a multigene alignment tree, which can be used to create a supermatrix and tree using all genes with raxml.
 
+Full list of software and usage can be found in table \@ref(tab:software)
+
+```{r software, echo=FALSE}
+t <- read.csv("data/software.csv")
+n <- c("Name", "Version", "Docker", "Application")
+knitr::kable(
+  t, booktabs = TRUE,
+  caption = 'Full list of software and version. Docker representate the link to the docker ID, if local is given no docker container was used and the software was installed locally on the cluster server. Application is the short version of usage for the software.',
+  col.names = n
+)
+
+```
+
+## Visualization
+
+Graphical representation of the results was done with R [@r2020] and the packages [@tidyverse2019; @treeio2020; @ggtree2020; @ape2019]. The script with result data and text for this homework paper can be found on github^[https://github.com/HannesOberreiter/AMEB2020_dictyocotyle_coeliaca].
+
+
 
 # Results
+
+This is our result tree, figure \@ref(fig:tree).
+
+```{r tree, fig.cap="\\label{fig:tree}Resulting Tree", echo=FALSE}
+knitr::include_graphics("data/tree.pdf")
+```
+
+This is our result tree, figure \@ref(fig:genetree).
+
+
+```{r genetree, fig.cap="\\label{fig:genetree}Resulting BUSCO Trees", echo=FALSE}
+knitr::include_graphics("data/gene_tree.pdf")
+```
+
+The proposed hypotheses for the clades, figure \@ref(fig:trees).
+
+```{r trees, fig.cap="\\label{fig:trees}Three competing hypotheses of the evolution of Neodermata previously found supported by molecular data. a) (Lockyer, Olson, and Littlewood 2003), b) (Perkins et al. 2010), and c) (Littlewood, Rohde, and Clough 1999; Littlewood and Olson 2001; Laumer and Giribet 2014).", echo=FALSE}
+knitr::include_graphics("data/trees.png")
+```
 
 The quality analysis with BUSCO did show lower completness for the assembly which was improved with ONP reads. Therefore, we used only the given Illumina Sequences. In further analysis.
 
@@ -96,158 +128,5 @@ The quality analysis with BUSCO did show lower completness for the assembly whic
 The problems why our minION reads did not improve the quality of the Illumina reads can be explained with a fragmented reads in the minION process. Because of the low length of fragments we did stop the minION sequencen early to save ressources for other reads. These resulted in "short'isch" reads and low coverage of this reads and no advandage for the illumina sequences was gained by this.
 
 # References
-
-
-
-@article{bolger2014,
-  title = {Trimmomatic: A Flexible Trimmer for {{Illumina}} Sequence Data},
-  shorttitle = {Trimmomatic},
-  author = {Bolger, Anthony M. and Lohse, Marc and Usadel, Bjoern},
-  date = {2014-08-01},
-  journaltitle = {Bioinformatics},
-  volume = {30},
-  pages = {2114--2120},
-  issn = {1460-2059, 1367-4803},
-  doi = {10.1093/bioinformatics/btu170},
-  langid = {english},
-  number = {15}
-}
-
-@article{kurtzer2017,
-  title = {Singularity: {{Scientific}} Containers for Mobility of Compute},
-  shorttitle = {Singularity},
-  author = {Kurtzer, Gregory M. and Sochat, Vanessa and Bauer, Michael W.},
-  editor = {Gursoy, Attila},
-  date = {2017-05-11},
-  journaltitle = {PLOS ONE},
-  shortjournal = {PLoS ONE},
-  volume = {12},
-  pages = {e0177459},
-  issn = {1932-6203},
-  doi = {10.1371/journal.pone.0177459},
-  langid = {english},
-  number = {5}
-}
-
-@article{dawes1948,
-	Author = {Dawes, Ben},
-	Da = {1948/04/01},
-	Date-Added = {2020-06-30 13:45:27 +0200},
-	Date-Modified = {2020-06-30 13:45:27 +0200},
-	Doi = {10.1038/161642c0},
-	Isbn = {1476-4687},
-	Journal = {Nature},
-	Number = {4095},
-	Pages = {642--643},
-	title = {A Rare C{\oe}lom-Dwelling Trematode},
-	Ty = {JOUR},
-	Volume = {161},
-	Year = {1948},
-}
-
-@article{lockyer2003,
-  title = {Utility of Complete Large and Small Subunit {{rRNA}} Genes in Resolving the Phylogeny of the {{Neodermata}} ({{Platyhelminthes}}): Implications and a Review of the Cercomer Theory: {{PHYLOGENY OF THE NEODERMATA}}},
-  shorttitle = {Utility of Complete Large and Small Subunit {{rRNA}} Genes in Resolving the Phylogeny of the {{Neodermata}} ({{Platyhelminthes}})},
-  author = {Lockyer, A. E. and Olson, P. D. and Littlewood, D. T. J.},
-  date = {2003-01-31},
-  journaltitle = {Biological Journal of the Linnean Society},
-  volume = {78},
-  pages = {155--171},
-  issn = {00244066, 10958312},
-  doi = {10.1046/j.1095-8312.2003.00141.x},
-  langid = {english},
-  number = {2}
-}
-
-@article{perkins2010,
-  title = {Closing the Mitochondrial Circle on Paraphyly of the {{Monogenea}} ({{Platyhelminthes}}) Infers Evolution in the Diet of Parasitic Flatworms},
-  author = {Perkins, Elizabeth M. and Donnellan, Steve C. and Bertozzi, Terry and Whittington, Ian D.},
-  date = {2010-09},
-  journaltitle = {International Journal for Parasitology},
-  shortjournal = {International Journal for Parasitology},
-  volume = {40},
-  pages = {1237--1245},
-  issn = {00207519},
-  doi = {10.1016/j.ijpara.2010.02.017},
-  langid = {english},
-  number = {11}
-}
-
-@article{littlewood1999,
-  title = {The Interrelationships of All Major Groups of {{Platyhelminthes}}: Phylogenetic Evidence from Morphology and Molecules},
-  shorttitle = {The Interrelationships of All Major Groups of {{Platyhelminthes}}},
-  author = {Littlewood, D. T. J. and Rohde, K. and Clough, K. A.},
-  date = {1999-01},
-  journaltitle = {Biological Journal of the Linnean Society},
-  volume = {66},
-  pages = {75--114},
-  issn = {00244066},
-  doi = {10.1111/j.1095-8312.1999.tb01918.x},
-  langid = {english},
-  number = {1}
-}
-
-@article{olson2001,
-  title = {Interrelationships and {{Evolution}} of the {{Tapeworms}} ({{Platyhelminthes}}: {{Cestoda}})},
-  shorttitle = {Interrelationships and {{Evolution}} of the {{Tapeworms}} ({{Platyhelminthes}}},
-  author = {Olson, Peter D. and Littlewood, D.Timothy J. and Bray, Rodney A. and Mariaux, Jean},
-  date = {2001-06},
-  journaltitle = {Molecular Phylogenetics and Evolution},
-  shortjournal = {Molecular Phylogenetics and Evolution},
-  volume = {19},
-  pages = {443--467},
-  issn = {10557903},
-  doi = {10.1006/mpev.2001.0930},
-  langid = {english},
-  number = {3}
-}
-
-@article{laumer2014,
-  title = {Inclusive Taxon Sampling Suggests a Single, Stepwise Origin of Ectolecithality in {{Platyhelminthes}}: {{Ectolecithality}} in {{Platyhelminthes}}},
-  shorttitle = {Inclusive Taxon Sampling Suggests a Single, Stepwise Origin of Ectolecithality in {{Platyhelminthes}}},
-  author = {Laumer, Christopher E. and Giribet, Gonzalo},
-  date = {2014-03},
-  journaltitle = {Biological Journal of the Linnean Society},
-  shortjournal = {Biol J Linn Soc Lond},
-  volume = {111},
-  pages = {570--588},
-  issn = {00244066},
-  doi = {10.1111/bij.12236},
-  langid = {english},
-  number = {3}
-}
-
-
-@article{dawes1958,
-  title = {The {{Enigmatical Trematode}} “{{Dictyocotyle}} Coeliaca”},
-  author = {Dawes, Ben and Griffiths, Ivor},
-  date = {1958-10},
-  journaltitle = {Nature},
-  shortjournal = {Nature},
-  volume = {182},
-  pages = {1033--1034},
-  issn = {0028-0836, 1476-4687},
-  doi = {10.1038/1821033a0},
-  langid = {english},
-  number = {4641}
-}
-
-@article{koster2012,
-  title = {Snakemake--a Scalable Bioinformatics Workflow Engine},
-  author = {Koster, J. and Rahmann, S.},
-  date = {2012-10-01},
-  journaltitle = {Bioinformatics},
-  shortjournal = {Bioinformatics},
-  volume = {28},
-  pages = {2520--2522},
-  issn = {1367-4803, 1460-2059},
-  doi = {10.1093/bioinformatics/bts480},
-  langid = {english},
-  number = {19}
-}
-
-
-
-
 
 
