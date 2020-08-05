@@ -40,6 +40,8 @@ CLADENODES <- map(TAXA, function(x){
 
 # Our Tree
 MAIN_TREE <- ggtree::ggtree(FINALTREE, branch.length="none") +
+  geom_hilight(23, alpha=0.2) +
+  geom_hilight(29, alpha=0.2) +
   theme(legend.position = 'none')+
   geom_tiplab(size=3, aes(color=Clades), fontface='italic') + 
   geom_label2(
