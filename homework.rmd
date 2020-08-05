@@ -10,16 +10,16 @@ header-includes:
     - \captionsetup[figure]{font=small}
 output:
   bookdown::pdf_document2:
+    extra_dependencies: ["float"]
     toc: false
     citation_package: biblatex
 bibliography: bib.bibtex
 link-citations: true
 abstract: Using public available gene data and self extracted data with NGS technology to tertermine the systematic position in the neodermata. BUSO complete genes were used for tree building. 
 ---
-
 ```{r global_options, include=FALSE}
 # this tells r to fix images on positions were I want them and don't let LaTeX shuffle them around like crazy
-knitr::opts_chunk$set(fig.pos = 'H')
+knitr::opts_chunk$set(fig.pos = "H", out.extra = "", fig.align="center")
 library("tidyverse")
 ```
 
@@ -62,16 +62,18 @@ knitr::kable(
 
 For reproductibility all of the used software were can be found in docker containers. Assembly and tree Building was done on a cluster server, steps are reproducible because we facilitated docker^[https://www.docker.com/] container with singularity [@kurtzer2017].
 
-In addition to the minION reads we also used local available Illumina reads of high quality. Illumina reads were quality corrected with TRIMMOMATIC^[docker://chrishah/trimmomatic-docker:0.38], settings see \@ref(code:trim-settings) [@bolger2014].
+In addition to the minION reads we also used local available Illumina reads of high quality. Illumina reads were quality corrected with TRIMMOMATIC^[docker://chrishah/trimmomatic-docker:0.38], for settings see code definition \@ref(def:code) [@bolger2014].
 
-\begin{small}
-Code: (\#code:trim-settings) Settings for Trimmomatic used for quality control of Illumina data.
-\end{small}
-```bash
+```{definition, label="code", name="Trimmomatic"}
+Settings for Trimmomatic used for quality control of Illumina data.
+
+~~~bash
 trimmomatic PE -phred33
 <input-output files>
 ILLUMINACLIP:/usr/src/Trimmomatic/0.38/Trimmomatic-0.38/adapters/TruSeq3-PE-2.fa:2:30:10 \
 LEADING:30 TRAILING:30 SLIDINGWINDOW:5:20 MINLEN:500
+~~~
+  
 ```
 
 Assembly of contigs and scaffolds was done with PLATANUS^[docker://chrishah/platanus:v1.2.4], standard settings. Long reads from our ONT lab work were used in combination with the resulting scaffolds with pyScaf^[docker://chrishah/pyscaf-docker] logic to improve the quality of the assembly.
@@ -85,10 +87,11 @@ Full list of software and usage can be found in table \@ref(tab:software)
 ```{r software, echo=FALSE}
 t <- read.csv("data/software.csv")
 n <- c("Name", "Version", "Docker", "Application")
+t <- t[order(t$program),]
 knitr::kable(
-  t, booktabs = TRUE,
+  t[,c(1:3)], booktabs = TRUE, row.names = FALSE,
   caption = 'Full list of software and version. Docker representate the link to the docker ID, if local is given no docker container was used and the software was installed locally on the cluster server. Application is the short version of usage for the software.',
-  col.names = n
+  col.names = n[1:3]
 )
 
 ```
@@ -97,36 +100,30 @@ knitr::kable(
 
 Graphical representation of the results was done with R [@r2020] and the packages [@tidyverse2019; @treeio2020; @ggtree2020; @ape2019]. The script with result data and text for this homework paper can be found on github^[https://github.com/HannesOberreiter/AMEB2020_dictyocotyle_coeliaca].
 
-
-
 # Results
 
-This is our result tree, figure \@ref(fig:tree).
+The quality analysis with BUSCO did show lower completness for the assembly of *Dictyocotyle coeliaca* which was improved with ONP reads. The cause for the low quality could not be identified but was probably in library prepreration as the DNA assessment after extraction did look good. Therefore, we used only the already given Illumina Sequences in further analysis.
 
-```{r tree, fig.cap="\\label{fig:tree}Resulting Tree", echo=FALSE}
-knitr::include_graphics("data/tree.pdf")
-```
+In total 313 BUSCO genes were used in the supermatrix to build the phylogenetic tree, but only 4 genes were available throughout all taxa, see figure \@ref(fig:genetree) for single gene tree of these genes. The resulting phylogenetic tree for the supermatrix can be seen in figure \@ref(fig:tree). It shows high bootstrap coverage for all nodes expect one internal clade node, but did not influence the phylogenetic position of the groups in question. 
 
-This is our result tree, figure \@ref(fig:genetree).
+The result for the parasitic groups indicates Monopisthocotylea (Monogenea) as the most basal clade and Cestoda as sister group to monophyletic close related Trematoda and Polypisthocotylea (Monogenea). Therefore, in our results the major parasitic group of Monogenea (Monopisthocotylea and Polypisthocotylea) can be seen as paraphyletic. 
 
-
-```{r genetree, fig.cap="\\label{fig:genetree}Resulting BUSCO Trees", echo=FALSE}
+```{r genetree, fig.cap="Singel gene phylogenetic trees for genes available for all given taxa.", echo=FALSE, fig.width = 2}
 knitr::include_graphics("data/gene_tree.pdf")
 ```
 
-The proposed hypotheses for the clades, figure \@ref(fig:trees).
-
-```{r trees, fig.cap="\\label{fig:trees}Three competing hypotheses of the evolution of Neodermata previously found supported by molecular data. a) (Lockyer, Olson, and Littlewood 2003), b) (Perkins et al. 2010), and c) (Littlewood, Rohde, and Clough 1999; Littlewood and Olson 2001; Laumer and Giribet 2014).", echo=FALSE}
-knitr::include_graphics("data/trees.png")
+```{r tree, fig.cap="Phylogenetic tree of the major parasitic groups, clades with blue background belong to parasitic group of Monogenea.", echo=FALSE}
+knitr::include_graphics("data/tree.pdf")
 ```
-
-The quality analysis with BUSCO did show lower completness for the assembly which was improved with ONP reads. Therefore, we used only the given Illumina Sequences. In further analysis.
-
 
 # Discussion
 
 The problems why our minION reads did not improve the quality of the Illumina reads can be explained with a fragmented reads in the minION process. Because of the low length of fragments we did stop the minION sequencen early to save ressources for other reads. These resulted in "short'isch" reads and low coverage of this reads and no advandage for the illumina sequences was gained by this.
 
+Our tree does not correspond to the currently proposed hypotheses of the major parasitic groups, see figure \@ref(fig:trees).
+
+```{r trees, fig.cap="Three competing hypotheses of the evolution of Neodermata previously found supported by molecular data. a) (Lockyer, Olson, and Littlewood 2003), b) (Perkins et al. 2010), and c) (Littlewood, Rohde, and Clough 1999; Littlewood and Olson 2001; Laumer and Giribet 2014).", echo=FALSE}
+knitr::include_graphics("data/trees.png")
+```
+
 # References
-
-
