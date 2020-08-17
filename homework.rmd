@@ -15,7 +15,7 @@ output:
     citation_package: biblatex
 bibliography: bib.bibtex
 link-citations: true
-abstract: Using public available gene data and self extracted data with NGS technology to tertermine the systematic position in the neodermata. BUSO complete genes were used for tree building. 
+abstract: Using publicly available genomic data additionally to data, which we produced ourselfs using NGS technology, we try to resolve the systematic position in the neodermata. BUSO complete genes were used for tree building. 
 ---
 ```{r global_options, include=FALSE}
 # this tells r to fix images on positions were I want them and don't let LaTeX shuffle them around like crazy
@@ -25,17 +25,23 @@ library("tidyverse")
 
 # Introduction
 
-The Parasitic Flatworm *Dictyocotyle coeliaca* (Nybelin, 1941) is a very fascinating parasite due to its rarity and its special morphological features, distinguihing it from the common cloacal parasite *Calicotyle kroyeri* [@dawes1948; @dawes1958]. (Isn't it the only monogenean inside the body cavity?) It is living in the cœlom of its host and was found multiple times on the liver of the host [@dawes1948].Possible hosts were the parasit was found are all deep sea rays for example *Raja radiata* and *Raja lintea* [@dawes1948].
+Neodermata are parasitic plathelminthes, subsuming three groups of flatworms icluding the Trematoda (flukes), Cestoda (tapeworms) and the Monogenea. Trematodes and cestodes are exclusively endoparasitic, while monogeneans are mainly adjusted to a ectoparasitic lifestyle with some exceptions (xxx). The Monogeneans, which mostly parasitise aquatic vertebrates, can be further subdivided into the Polyopisthocotyleans, that possess more complex haptors and are comprised mostly of blood-feeders that attach to the gills of their hosts , and the Monopisthocotyleans, which possess more simple haptors and can be found on gills, skin and fins (xxxx). The evolutionary history of these three groups, as well as the origin of their differing life cycles (complex vs. simple) and the origin of the differing parasitic lifestyles (endo-/ectoparasitism) have been and are extensively debated. To gain more insight into the evolutionary history of the neodermata the phylogenetic position of the Monogeneans has to be resolved (Park et al. 2007).  At the moment there are multiple competing hypotheses about the correct evolutionary history of the neodermata [@lockyer2003; @perkins2010; @littlewood1999; @olson2001; @laumer2014]. 
 
-Our species of interest belongs to the subclass of Monopisthocotylea. The correct systematic position is still under active discussion. At the moment there are multiple competing hypotheses about the correct evolutionary history of the neodermata, a sister-group of planthemites [@lockyer2003; @perkins2010; @littlewood1999; @olson2001; @laumer2014].
+The monogenean *Dictyocotyle coeliaca* (Nybelin, 1941) is quite rare and morphologically specialized, making it easily distinguishable it from the common cloacal parasite *Calicotyle kroyeri* [@dawes1948; @dawes1958]. It can be found in the cœlom of its hosts where it was found multiple times on liver tissue [@dawes1948]. Possible hosts include a variety of deep sea rays, like *Raja radiata* and *Raja lintea* [@dawes1948]. *Dictyocotyle coeliaca* belongs to the subclass of Monopisthocotyleans.
 
-In an advanced evolutionary practice course at the University of Graz, we did sequence three different species with NGS Oxford Nanopore, which all belong into the same group. With the help of these new gained data and additional open access data from NCBI Genbank we want to shed some more light into the controverse phylogeny of neodermata.
+With the addition of newly produced sequencing data of three species of monogeneans, the aim of this study is to further improve already existing sequencing data and, with the addition of openly accessable data from NCBI Genbank shed more light onto the controversely discussed phylogeny of the neodermata with a focus on the positioning of the monogenenans.
+
 
 # Material and Methods
 
 ## DNA extraction and library prep
 
-The species samples were found on host *Raja radiata* in Norway. The DNA concentration after extracting and length distribution were assessed with a TapeStation using Genomic DNA screen tapes and a Qubit 4 Flourometer using the broad range assay resulting in an concentration of 69.6 ng/µl. To reach the recommended concentration of 1µg of high molecular weight DNA two sample specimen (20µl B164-65, 21µl B161-63) were pooled before the library prep. Library prep was done using the Nanopore Ligation Sequencing kit (SQK-LSK109). To enrich sequences that are 3kb long or longer, we used the long frame Buffer following the protocol. Lab Protocol Version `GDE_9063_v109_revT_14Aug2019` which can be found on a github repositroy which was used over the course in which we sequenced the parasite: [AMEB 2020 practical](https://github.com/chrishah/AMEB_2020_practical).
+The samples of *Dictyocotyle coeliaca* were sampled in Norway from the host species *Raja radiata*. DNA extraction was 
+
+
+
+
+The DNA concentration after extracting and length distribution were assessed with a TapeStation using Genomic DNA screen tapes and a Qubit 4 Flourometer using the broad range assay resulting in an concentration of 69.6 ng/µl. To reach the recommended concentration of 1µg of high molecular weight DNA two sample specimen (20µl B164-65, 21µl B161-63) were pooled before the library prep. Library prep was done using the Nanopore Ligation Sequencing kit (SQK-LSK109). To enrich sequences that are 3kb long or longer, we used the long frame Buffer following the protocol. Lab Protocol Version `GDE_9063_v109_revT_14Aug2019` which can be found on a github repositroy which was used over the course in which we sequenced the parasite: [AMEB 2020 practical](https://github.com/chrishah/AMEB_2020_practical).
 The concentration of the preped library was assessed using a Qubit 4 Flourometer. Quality Assesment in Library preperation was done according to the lab manual the first Qubit fluorometer measurement did result in 12.4ng/µl (total 744ng) and second 47.2ng/µl (total 660.8ng). For sequencing we used the Oxford Nanopore Technologies (ONT) minION Platform. The loading concentration of DNA in our samples was 566.4ng.
 
 ## Public Gene Data
