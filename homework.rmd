@@ -1,5 +1,5 @@
 ---
-title: "Using Nanopore Technologies (ONT) minION technology to sequence <i>Dictyocotyle coeliaca</i> and align in phylogenetic"
+title: "Evidence for Non-Monophyletic Phylogeny of Monogenea using NGS and Multigene Analysis"
 subtitle: 'University of Graz, Institut for Biology, AMEB2020'
 author: "Hannes Oberreiter, Anna Dünser"
 date: "July-August, 2020"
@@ -15,7 +15,7 @@ output:
     citation_package: biblatex
 bibliography: bib.bibtex
 link-citations: true
-abstract: Using publicly available genomic data additionally to data, which we produced ourselfs using NGS technology, we try to resolve the systematic position in the neodermata. BUSO complete genes were used for tree building. 
+abstract: Using publicly available genomic data additionally to data, which we produced ourselfs using NGS technology, we try to resolve the systematic position in the neodermata. A supermatrix of 313 BUSO genes were used with raxml to build a phylogenetic tree. Result shows Polyopisthocotyleans and Trematoda as Monophyletic Group with next sister group the Cestodes. Basal Group inside the Nerdermata can be found the Monopisthocotyleans. This new insight could show that that endoparasitic lifestyle till evolve a second time inside the Neodermata and also a process from simple to complex life cycle with multiple host did evolve seperately for Polyopisthocotyleans.
 ---
 ```{r global_options, include=FALSE}
 # this tells r to fix images on positions were I want them and don't let LaTeX shuffle them around like crazy
@@ -25,12 +25,13 @@ library("tidyverse")
 
 # Introduction
 
-Neodermata are parasitic plathelminthes, subsuming three groups of flatworms including the Trematoda (flukes), Cestoda (tapeworms) and the Monogenea. Trematodes and cestodes are exclusively endoparasitic, while monogeneans are mainly adjusted to a ectoparasitic lifestyle with some exceptions (xxx). The Monogeneans, which mostly parasitise aquatic vertebrates, can be further subdivided into the Polyopisthocotyleans, that possess more complex haptors and are comprised mostly of blood-feeders that attach to the gills of their hosts , and the Monopisthocotyleans, which possess more simple haptors and can be found on gills, skin and fins (xxxx). The evolutionary history of these three groups, as well as the origin of their differing life cycles (complex vs. simple) and the origin of the differing parasitic lifestyles (endo-/ectoparasitism) have been and are extensively debated. To gain more insight into the evolutionary history of the neodermata the phylogenetic position of the Monogeneans has to be resolved [@Park2007].  At the moment there are multiple competing hypotheses about the correct evolutionary history of the neodermata [@lockyer2003; @perkins2010; @littlewood1999; @olson2001; @laumer2014]. 
+Neodermata are obligat parasitic plathelminthes, subsuming three groups of flatworms including the Trematoda (flukes), Cestoda (tapeworms) and the Monogenea [@gibson2014; @littlewood1999; @Park2007]. Most Trematodes and Cestodes are endoparasitic with a complex life cycle, while Monogeneans are mainly adjusted to a ectoparasitic lifestyle with a direct life cycle [@gibson2014]. The Monogeneans, which mostly parasitise aquatic vertebrates, can be further subdivided into the Polyopisthocotyleans, that possess more complex haptors, with clamps and minuscule hooks, and are comprised mostly of blood-feeders that attach to the gills of their hosts. The second subsclass are the Monopisthocotyleans, which possess more simple haptors, only hooks, and can be found on skin or gills and feed on skin and or muscus [@gibson2014].
 
-The monogenean *Dictyocotyle coeliaca* (Nybelin, 1941) is quite rare and morphologically specialized, making it easily distinguishable it from the common cloacal parasite *Calicotyle kroyeri* [@dawes1948; @dawes1958]. It can be found in the cœlom of its hosts where it was found multiple times on liver tissue [@dawes1948]. Possible hosts include a variety of deep sea rays, like *Raja radiata* and *Raja lintea* [@dawes1948]. *Dictyocotyle coeliaca* belongs to the subclass of Monopisthocotyleans.
+The evolutionary history of these three groups, as well as the origin of their differing life cycles (complex vs. simple) and the origin of the differing parasitic lifestyles (endo-/ectoparasitism) have been and are extensively debated. To gain more insight into the evolutionary history of the neodermata the phylogenetic position of the Monogeneans has to be resolved [@Park2007].  At the moment there are multiple competing hypotheses about the correct evolutionary history of the neodermata [@lockyer2003; @perkins2010; @littlewood1999; @olson2001; @laumer2014]. 
 
-With the addition of newly produced sequencing data of two species of monogeneans, the aim of this study is to further improve already existing sequencing data and, with the addition of openly accessible data from NCBI Genbank shed more light onto the controversely discussed phylogeny of the neodermata with a focus on the positioning of the monogenenans.
+A special species in our group was the monogenean *Dictyocotyle coeliaca* (Nybelin, 1941), which belongs to the subsclass of Monopisthocotyleans. The taxa is quite rare and morphologically specialized [@dawes1948; @dawes1958]. It can be found in the cœlom of its hosts where it was found multiple times on liver tissue [@dawes1948]. Possible hosts include a variety of deep sea rays, like *Raja radiata* and *Raja lintea* [@dawes1948]. *Dictyocotyle coeliaca* belongs to the subclass of Monopisthocotyleans.
 
+Our goal is with the addition of newly produced sequencing data of two species of monogeneans (*D. coeliaca* and *Leptocotyle minor*), the aim of this study is to further improve already existing sequencing data and, with the addition of openly accessible data from NCBI Genbank and a Multigene Matrix shed more light onto the controversely discussed phylogeny of the neodermata with a focus on the positioning of the monogenenans.
 
 # Material and Methods
 
