@@ -1,5 +1,5 @@
 ---
-title: "Evidence for Non-Monophyletic Phylogeny of Monogenea using NGS and Multigene Analysis"
+title: "Evidence for Paraphyletic Phylogeny of Monogenea using modern NGS Data and Multigene Analysis"
 subtitle: 'University of Graz, Institut for Biology, AMEB2020'
 author: "Hannes Oberreiter, Anna Dünser"
 date: "July-August, 2020"
@@ -15,6 +15,7 @@ output:
     citation_package: biblatex
 bibliography: bib.bibtex
 link-citations: true
+urlcolor: blue
 abstract: Using publicly available genomic data additionally to data, which we produced ourselfs using NGS technology, we try to resolve the systematic position in the neodermata. A supermatrix of 313 BUSO genes were used with raxml to build a phylogenetic tree. Result shows Polyopisthocotyleans and Trematoda as Monophyletic Group with next sister group the Cestodes. Basal Group inside the Nerdermata can be found the Monopisthocotyleans. This new insight could show that that endoparasitic lifestyle till evolve a second time inside the Neodermata and also a process from simple to complex life cycle with multiple host did evolve seperately for Polyopisthocotyleans.
 ---
 ```{r global_options, include=FALSE}
@@ -37,7 +38,7 @@ Our goal is with the addition of newly produced sequencing data of two species o
 
 ## DNA extraction and library prep
 
-The specimen of *D. coeliaca* were sampled in Norway from the host species *R. radiata*. The Zymo Research DNA Miniprep Plus KIT was used to extract DNA. After the extraction the concentration and length distribution were assessed with a Qubit 4 Flourometer using the broad range assay resulting in an concentration of 69.6ng/µl. The TapeStation 2200 (Agilent Technologies) using genomic DNA screen tapes was used to assess size distribution, see Fig. \@ref(fig:tapestation). To reach the recommended concentration of 1µg of high molecular weight DNA two sample specimen (20µl B164-65, 21µl B161-63) were pooled for the library preparation. Library preparation was done using the Nanopore Ligation Sequencing Kit (SQK-LSK109). To enrich sequences with a length of 3kb or longer, we used the long frame buffer following the protocol (Lab Protocol Version `GDE_9063_v109_revT_14Aug2019` which can be found on a github repository: [AMEB 2020 practical](https://github.com/chrishah/AMEB_2020_practical)).
+The specimen of *D. coeliaca* were sampled in Norway from the host species *R. radiata*. The Zymo Research DNA Miniprep Plus KIT was used to extract DNA. After the extraction the concentration and length distribution were assessed with a Qubit 4 Flourometer using the broad range assay resulting in an concentration of 69.6ng/µl. The TapeStation 2200 (Agilent Technologies) using genomic DNA screen tapes was used to assess size distribution, see fig. \@ref(fig:tapestation). To reach the recommended concentration of 1µg of high molecular weight DNA two sample specimen (20µl B164-65, 21µl B161-63) were pooled for the library preparation. Library preparation was done using the Nanopore Ligation Sequencing Kit (SQK-LSK109). To enrich sequences with a length of 3kb or longer, we used the long frame buffer following the protocol (Lab Protocol Version `GDE_9063_v109_revT_14Aug2019` which can be found on a github repository: [AMEB 2020 practical](https://github.com/chrishah/AMEB_2020_practical)).
 
 The concentration of the prepared library was assessed using a Qubit 4 Flourometer. Quality assessment in library preparation followed the lab manual. The first Qubit measurement for *D. coeliaca* did result in 12.4ng/µl (total 744ng) and the second in 47.2ng/µl (total 660.8ng). For sequencing we used the minION platform of the Oxford Nanopore Technologies (ONT). The loading concentration of DNA in our samples was 566.4ng. Additionally DNA sequencing was also conducted by a second group of the practical course for the second monogenen species, *L. minor*.
 
@@ -106,21 +107,19 @@ knitr::kable(
 
 ## Visualization
 
-Graphical representation of the results was done with R [@r2020] and the packages [@tidyverse2019; @treeio2020; @ggtree2020; @ape2019]. The script for visualization and text for this homework paper can be found on github^[https://github.com/HannesOberreiter/AMEB2020_dictyocotyle_coeliaca].
+Graphical representation of the results was done with R [@r2020] and the packages [@tidyverse2019; @treeio2020; @ggtree2020; @ape2019]. The script for visualization and text for this homework can be found on github^[https://github.com/HannesOberreiter/AMEB2020_dictyocotyle_coeliaca].
 
 # Results
 
-The quality analysis with BUSCO did show lower completness for the assembly of *D. coeliaca* which was improved with ONP reads. The cause for the low quality could not be identified but was probably in library prepreration as the DNA assessment after extraction did look good. The report for the minION sequencing is online and public available as PDF on github^[https://github.com/chrishah/AMEB_2020_practical/blob/master/assembly-long/MinION/sequencing_reports/minion_report_Dceol_010720.pdf]. Therefore, we used only the already given Illumina Sequences in further analysis.
-
-The BUSCO analysis for the assembly of *Leptocotyle minor*, which only included the minION data, did result in 87 BUSCO genes.  
-
-In total 313 BUSCO genes were used in the supermatrix to build the phylogenetic tree, but only 4 genes were available throughout all taxa, see figure \@ref(fig:genetree) for single gene tree of these genes. The resulting phylogenetic tree for the supermatrix can be seen in figure \@ref(fig:tree). It shows high bootstrap coverage for all nodes expect one internal clade node, but did not influence the phylogenetic position of the groups in question. If building gene trees for each of the four genes found in all taxa, the Monogenean subfamilies are not monophyletic in any of those trees. 
-
-The result for the parasitic groups indicates Monopisthocotylea (Monogenea) as the most basal clade and Cestoda as sister group to monophyletic close related Trematoda and Polypisthocotylea (Monogenea). Therefore, in our results the major parasitic group of Monogenea (Monopisthocotylea and Polypisthocotylea) can be seen as paraphyletic. 
+The quality analysis with BUSCO did show lower completeness for the local available Illumina assembly of *D. coeliaca*, which was improved with our ONP reads from the practical course. Because of the low length of fragments we did stop the minION sequencing early to save resources for other for the other groups in the course, the report for the minION sequencing is online and public available as PDF on github^[[minION Report](https://github.com/chrishah/AMEB_2020_practical/blob/master/assembly-long/MinION/sequencing_reports/minion_report_Dceol_010720.pdf)]. Therefore, we used the local assembly from Illumina sequences, without ONP reads, for further analysis. The BUSCO analysis for the assembly of *L. minor*, which only included the minION data and was done by another group in the course, did result in 87 BUSCO genes and was used for further analysis.
 
 ```{r genetree, fig.cap="Singel gene phylogenetic trees for genes available for all given taxa.", echo=FALSE, fig.width = 2}
 knitr::include_graphics("data/gene_tree.pdf")
 ```
+
+In total 313 BUSCO genes were used in the supermatrix to calculate the phylogenetic tree and four of these genes were available throughout all taxa, see fig. \@ref(fig:genetree). In none of the calculated single gene trees the Monogenean represent a monophyletic group. The resulting phylogenetic tree for the supermatrix with all BUSCO genes can be seen in fig. \@ref(fig:tree). It shows high bootstrap coverage for all nodes expect one internal clade node, but did not influence the phylogenetic position of the groups in question. 
+
+The result for the parasitic groups indicates Monopisthocotylea (Monogenea) as the most basal clade and Cestoda as sister group to the monophyletic group of Trematoda and Polypisthocotylea (Monogenea). Therefore, in our results the major parasitic group of Monogenea (Monopisthocotylea and Polypisthocotylea) can be seen as paraphyletic. 
 
 ```{r tree, fig.cap="Phylogenetic tree of the major parasitic groups, clades with blue background belong to parasitic group of Monogenea.", echo=FALSE}
 knitr::include_graphics("data/tree.pdf")
@@ -128,11 +127,19 @@ knitr::include_graphics("data/tree.pdf")
 
 # Discussion
 
-The problems why our minION reads did not improve the quality of the Illumina reads can be explained with a fragmented reads in the minION process. Because of the low length of fragments we did stop the minION sequencen early to save ressources for other reads. These resulted in "short'isch" reads and low coverage of this reads and no advandage for the illumina sequences was gained by this.
+The cause why our minION reads did not improve the quality of the Illumina reads could not be identified but was probably a high fragmentation of the DNA while library preparation of the reads, as the DNA assessment after extraction did look good, see fig. \@ref(fig:tapestation). These resulted in very short and also low coverage of these reads and no advantage for the Illumina assembly was gained by if the ONP reads were used in assembly and scaffolding.
 
-Our tree does not correspond to the currently proposed hypotheses of the major parasitic groups, see figure \@ref(fig:trees).
+The resulting tree does not correspond to the currently proposed hypotheses of the major parasitic groups, see figure \@ref(fig:trees). The sublcass of Monopisthocotyleans as basal group indicates a single evolutionary event which did split a simple life cycle as seen by most Monopisthocotyleans to more complex life cycles with multiple hosts as seen in Trematoda and Cestoda. The Polyopisthocotyleans seems to have undergone a second evolutionary step were they lost the trait of the complex life cycle and came back to a simple one. 
 
-```{r trees, fig.cap="Three competing hypotheses of the evolution of Neodermata previously found supported by molecular data. a) (Lockyer, Olson, and Littlewood 2003), b) (Perkins et al. 2010), and c) (Littlewood, Rohde, and Clough 1999; Littlewood and Olson 2001; Laumer and Giribet 2014).", echo=FALSE}
+The same, as for life-cycle, can be said for lifestyle (ecto- vs. endoparasitism). We see that the basal group of Monopisthocotyleans is mainly ectoparasitic. As the Tubellaria, which can be seen as a close related sister group inside the Platyhelminthes to the Nermatoda, are free living we would expect that the ectoparasitic is the logical plesiomorphic trait. @Park2007 came to a similar conclusion that ectoparasitism arose first but only one Monogenea taxa (*M. sebastis*) was used in this study. 
+
+ectoparasitism vs. endoparasit- ism) arose first within the Neodermata clade. If monoge- nean monophyly is true, as supported by the majority of previous works, it is expected that a single shifting event from ecto- to endo-parasitism or vice versa is equally pos- sible to explain the evolutionary scenario of the parasitic patterns found in the neodermatan group
+
+
+(ref:trees-label) Three competing hypotheses of the evolution of Neodermata previously found supported by molecular data. a) [@lockyer2003], b) [@perkins2010], and c) [@littlewood1999; @olson2001; @laumer2014]. Image from practical course worksheet available at [google.doc](https://docs.google.com/document/d/1h2fNYv-hyIJfBnAZd0uEgk6zkS6bFyiQgQISwl4Qfh8).
+
+
+```{r trees, fig.cap="(ref:trees-label)", echo=FALSE}
 knitr::include_graphics("data/trees.png")
 ```
 
