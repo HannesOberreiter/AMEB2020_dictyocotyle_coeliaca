@@ -17,9 +17,7 @@ bibliography: bib.bibtex
 biblio-style: authoryear
 link-citations: true
 urlcolor: blue
-abstract: Using publicly available genomic data and additionally produced NGS data we try to resolve the systematic position of the neodermata. A supermatrix of 313 BUSO genes was used with raxml to build a phylogenetic tree. Result suggest a monphyly of Polyopisthocotylean (Monogenea) and Trematoda closely related to the Cestoda. Monopisthocotyleans (Monogenea) seem to be the most basal group of neodermata. This new insight shows that the Monogeans are a polyphyletic group and that the ectoparasitic and simple livestyle can be regarded as the basal lifestyle, from which endoparastitism evolved. 
-This new insight opens a discussion if life-style (ecto- vs. endoparasitic) and life history (simple vs. complex) could have evolved two times in the neodermata group. Close relationship between Polyopisthocotylean (Monogenea) and Trematoda could explain similar feeding habits between those two taxa.
-
+abstract: Using publicly available genomic data and additionally produced NGS data we try to resolve the systematic position of the neodermata. A supermatrix of 313 BUSO genes was used with raxml to build a phylogenetic tree. Result suggest a monphyly of Polyopisthocotylean (Monogenea) and Trematoda closely related to the Cestoda. Monopisthocotyleans (Monogenea) seem to be the most basal group of neodermata. This new insight shows that the Monogeans are a polyphyletic group and that the ectoparasitic and simple livestyle can be regarded as the basal lifestyle, from which endoparastitism evolved. This new insight opens a discussion if life-style (ecto- vs. endoparasitic) and life history (simple vs. complex) could have evolved two times in the neodermata group. Close relationship between Polyopisthocotylean (Monogenea) and Trematoda could explain similar feeding habits between those two taxa.
 ---
 ```{r global_options, include=FALSE}
 # this tells r to fix images on positions were I want them and don't let LaTeX shuffle them around like crazy
