@@ -14,9 +14,10 @@ output:
     toc: false
     citation_package: biblatex
 bibliography: bib.bibtex
+biblio-style: authoryear
 link-citations: true
 urlcolor: blue
-abstract: Using publicly available genomic data additionally to data, which we produced ourselfs using NGS technology, we try to resolve the systematic position in the neodermata. A supermatrix of 313 BUSO genes were used with raxml to build a phylogenetic tree. Result shows Polyopisthocotyleans and Trematoda as Monophyletic Group with next sister group the Cestodes. Basal Group inside the Nerdermata can be found the Monopisthocotyleans. This new insight could show that that endoparasitic lifestyle till evolve a second time inside the Neodermata and also a process from simple to complex life cycle with multiple host did evolve seperately for Polyopisthocotyleans.
+abstract: Using publicly available genomic data and additionally data, which we produced ourselfs using modern NGS technology, we try to resolve the systematic position in the neodermata. A supermatrix of 313 BUSO genes were used with raxml to build a phylogenetic tree. Result shows Polyopisthocotylean (Monogenea) and Trematoda as monophyletic group with sister taxa the Cestodes. Monopisthocotyleans (Monogenea) can be seen as basal group inside the Neodermata. This new insight could open discussion if the life-style (ecto- vs. endoparasitic) and life history (simple vs. complex) could have evolved two times in the Neodermata group. Close relationship between Polyopisthocotylean (Monogenea) and Trematoda could explain similar feeding habits between those two taxa.
 ---
 ```{r global_options, include=FALSE}
 # this tells r to fix images on positions were I want them and don't let LaTeX shuffle them around like crazy
@@ -26,11 +27,11 @@ library("tidyverse")
 
 # Introduction
 
-Neodermata are obligat parasitic plathelminthes, subsuming three groups of flatworms including the Trematoda (flukes), Cestoda (tapeworms) and the Monogenea [@gibson2014; @littlewood1999; @Park2007]. Most Trematodes and Cestodes are endoparasitic with a complex life cycle, while Monogeneans are mainly adjusted to a ectoparasitic lifestyle with a direct life cycle [@gibson2014]. The Monogeneans, which mostly parasite aquatic vertebrates, can be further subdivided into the Polyopisthocotyleans, that possess more complex haptors, with clamps and minuscule hooks, and are comprised mostly of blood-feeders that attach to the gills of their hosts. The second subsclass are the Monopisthocotyleans, which possess more simple haptors, only hooks, and can be found on skin or gills and feed on skin and or muscus [@gibson2014].
+Neodermata are obligat parasitic plathelminthes, subsuming three groups of flatworms including the Trematoda (flukes), Cestoda (tapeworms) and the Monogenea [@littlewood1999; @park2007; @gibson2014]. Most Trematodes and Cestodes are endoparasitic with a complex life cycle, while Monogeneans are mainly adjusted to a ectoparasitic lifestyle with a direct life cycle [@gibson2014]. The Monogeneans, which mostly parasite aquatic vertebrates, can be further subdivided into the Polyopisthocotyleans, that possess more complex haptors, with clamps and minuscule hooks, and are comprised mostly of blood-feeders that attach to the gills of their hosts. The second subsclass are the Monopisthocotyleans, which possess more simple haptors, only hooks, and can be found on skin or gills and feed on skin and or muscus [@gibson2014].
 
-The evolutionary history of these three groups, as well as the origin of their differing life cycles (complex vs. simple) and the origin of the differing parasitic lifestyles (endo-/ectoparasitism) have been and are extensively debated. To gain more insight into the evolutionary history of the neodermata the phylogenetic position of the Monogeneans has to be resolved [@Park2007].  At the moment there are multiple competing hypotheses about the correct evolutionary history of the neodermata [@lockyer2003; @perkins2010; @littlewood1999; @olson2001; @laumer2014]. 
+The evolutionary history of these three groups, as well as the origin of their differing life cycles (complex vs. simple) and the origin of the differing parasitic lifestyles (endo-/ectoparasitism) have been and are extensively debated. To gain more insight into the evolutionary history of the neodermata the phylogenetic position of the Monogeneans has to be resolved [@park2007].  At the moment there are multiple competing hypotheses about the correct evolutionary history of the neodermata [@littlewood1999; @olson2001; @lockyer2003; @perkins2010; @laumer2014]. 
 
-A special species in our group was the monogenean *Dictyocotyle coeliaca* (Nybelin, 1941), which belongs to the subsclass of Monopisthocotyleans. The taxa is quite rare and morphologically specialized [@dawes1948; @dawes1958]. It can be found in the cœlom of its hosts where it was found multiple times on liver tissue [@dawes1948]. Possible hosts include a variety of deep sea rays, like *Raja radiata* and *R. lintea* [@dawes1948]. *D. coeliaca* belongs to the subclass of Monopisthocotyleans.
+A special species in our group was the monogenean *Dictyocotyle coeliaca*, which belongs to the subsclass of Monopisthocotyleans. The taxa is quite rare and morphologically specialized [@dawes1948; @dawes1958]. It can be found in the cœlom of its hosts where it was found multiple times on liver tissue [@dawes1948]. Possible hosts include a variety of deep sea rays, like *Raja radiata* and *R. lintea* [@dawes1948]. *D. coeliaca* belongs to the subclass of Monopisthocotyleans.
 
 Our goal is with the addition of newly produced sequencing data of two species of monogeneans (*D. coeliaca* and *Leptocotyle minor*), the aim of this study is to further improve already existing sequencing data and, with the addition of openly accessible data from NCBI Genbank and a Multigene Matrix shed more light onto the controversely discussed phylogeny of the neodermata with a focus on the positioning of the monogenenans.
 
@@ -62,7 +63,7 @@ t <- t[order(t$group, t$species),]
 
 n <- c("Taxa", "Group", "Source (https://www.ncbi.nlm.nih.gov/*)")
 knitr::kable(
-  t[,1:3], booktabs = TRUE,
+  t[,1:3], booktabs = TRUE, row.names = FALSE,
   caption = 'List of taxa and corresponding phylogenetic group used in the analysis. The "Turbellaria" taxa was used as outgroup. Source links are public available record in the ncbi databank.',
   col.names = n, format = "markdown"
 )
@@ -127,20 +128,26 @@ knitr::include_graphics("data/tree.pdf")
 
 # Discussion
 
-The cause why our minION reads did not improve the quality of the Illumina reads could not be identified but was probably a high fragmentation of the DNA while library preparation of the reads, as the DNA assessment after extraction did look good, see fig. \@ref(fig:tapestation). These resulted in very short and also low coverage of these reads and no advantage for the Illumina assembly was gained by if the ONP reads were used in assembly and scaffolding.
+The cause why our minION reads did not improve the quality of the local available *D. coeliaca* Illumina assembly could not be identified but was probably a high fragmentation of the DNA while library preparation, as the DNA assessment after extraction did look good, see fig. \@ref(fig:tapestation). These resulted in very short and low coverage of these reads and no advantage for the Illumina assembly of was gained by it, if the ONP reads were used as alignment in scaffolding.
 
-The resulting tree does not correspond to the currently proposed hypotheses of the major parasitic groups, see figure \@ref(fig:trees). The sublcass of Monopisthocotyleans as basal group indicates a single evolutionary event which did split a simple life cycle as seen by most Monopisthocotyleans to more complex life cycles with multiple hosts as seen in Trematoda and Cestoda. The Polyopisthocotyleans seems to have undergone a second evolutionary step were they lost the trait of the complex life cycle and came back to a simple one. 
-
-The same, as for life-cycle, can be said for lifestyle (ecto- vs. endoparasitism). We see that the basal group of Monopisthocotyleans is mainly ectoparasitic. As the Tubellaria, which can be seen as a close related sister group inside the Platyhelminthes to the Nermatoda, are free living we would expect that the ectoparasitic is the logical plesiomorphic trait. @Park2007 came to a similar conclusion that ectoparasitism arose first but only one Monogenea taxa (*M. sebastis*) was used in this study. 
-
-ectoparasitism vs. endoparasit- ism) arose first within the Neodermata clade. If monoge- nean monophyly is true, as supported by the majority of previous works, it is expected that a single shifting event from ecto- to endo-parasitism or vice versa is equally pos- sible to explain the evolutionary scenario of the parasitic patterns found in the neodermatan group
+Our resulting tree does not correspond to the currently proposed hypotheses of the major parasitic groups, see figure \@ref(fig:trees). The phylogeny shows the group of Monogenea as paraphyletic, which is in accordance with new molecular based findings [@littlewood1999; @olson2001; @perkins2010; @laumer2014]. Previous studies which did group Monogenea in a monophylum, for example with morphological features alone or rRNA, are potentially wrong with their evolutionary history [@lockyer2003; boeger1993]. Our findings of the potential evolutionary history of the Neodermata are different from the previous studies and we want to try explain it, what this would mean for evolution of various traits in this group of big and diverse parasites. 
 
 
 (ref:trees-label) Three competing hypotheses of the evolution of Neodermata previously found supported by molecular data. a) [@lockyer2003], b) [@perkins2010], and c) [@littlewood1999; @olson2001; @laumer2014]. Image from practical course worksheet available at [google.doc](https://docs.google.com/document/d/1h2fNYv-hyIJfBnAZd0uEgk6zkS6bFyiQgQISwl4Qfh8).
-
-
 ```{r trees, fig.cap="(ref:trees-label)", echo=FALSE}
 knitr::include_graphics("data/trees.png")
 ```
+
+The paraphyletic position of Monopisthocotylean as basal group and Polyopisthocotylean as sister group to Trematoda could indicate two separate evolutionary events for the lifestyle in Neodermata evolutionary history (ecto- vs. endoparasitism). As the Tubellaria, which are the sister group inside Platyhelminthes to the Nermatoda, are free living we would expect that ectoparasitic lifestyle is the logical plesiomorphic trait for Neodermata. @park2007 came to a similar conclusion that ectoparasitism arose first but only one taxa was representing the Monogenea group in the study (Polyopisthocotylean, *Microcotyle sebastis*). Another study with more Monopisthocotyleans but again only one Polyopisthocotylean taxa (*M. sebastis*) did also came to a similar conclusion, but the resulting tree did show the Polyopisthocotylean as sister group to the monophyletic Trematoda and Cestoda, see fig. \@ref(fig:tapestation)-b) [@perkins2010]. Our results indicate the same basal group but with Polyopisthocotylean as sister group to Tremadota, we could propose that there was, a second evolutionary event happening back from endoparasitism to ectoparasitims. Therefore, the ectoparasitisms trait, which is shared by most Monopisthocotyleans and Polyopisthocotyleans, could be homoplasy. Of course we cannot say this for sure and the basal trait in the ancestors for Polyopisthocotyleans was never been lost as previously proposed [@park2007; @perkins2010].
+
+The same as for life-style can be said for the evolutionary history of the life-cycle (complex vs. simple). Both Monogenea groups follow mostly a simple life-cycle, whereas Tremadoa life-cycle is more complex, and most of the time molluscs are involved, and Cestoda with generally one or two intermediate hosts with eggs from intestinal living adults leaving the host via feces [@gibson2014]. The evolutionary history could again have two distinct events from simple to complex and back to simple or the simple life-cycle in Polyopisthocotyleans could be still the ancestral trait. 
+
+The evolution of the feeding habit question is a little bit more difficult, but could good makes sense in our new proposed phylogenetic tree. Our basal group of Monopisthocotylean feeds mostly on skin and or mucus [@gibson2014]. This type of feeding could be potentially the ancestral plesiomorphic trait but it would make also sense if the ancestor already did feed on blood like most Polyopisthocotyleans, the more sophisticated haptor design could be an evolution over time [@park2007]. The split of the Cestoda taxa could happened earlier in history as previous thought [@littlewood1999; @olson200; @perkins2010; @laumer2014]. It is probably not the ancestral features as Cestoda absorb their nutrients through their surface layer and did loose traits for normal digestion, e.g. guts [@gibson2014], which is more or less a point of no return, at least in the given time frame. The close relationship between Trematodes and Polyopisthocotyleans could make sense as both diets are similar, mostly feeding on blood, and the evolutionary speciation could have happened by different location niches on the host (ecto- and endoparasitic).
+
+Overall, our new proposed tree should give room for new discussion and shows the need for molecular studies on multiple taxa representing one group and the advantages in using a supermatrix of different genes. 
+
+# Acknowledgments
+
+Hahn, Christoph, Ph.D 
 
 # References
