@@ -108,7 +108,7 @@ knitr::kable(
 
 ## Visualization
 
-Graphical representation of the results was done with R [@r2020] and the packages [@tidyverse2019; @treeio2020; @ggtree2020; @ape2019]. The script for visualization and text for this script can be found on github^[https://github.com/HannesOberreiter/AMEB2020_dictyocotyle_coeliaca].
+Graphical representation of the results was performed with R [@r2020] and the packages [@tidyverse2019; @treeio2020; @ggtree2020; @ape2019]. The script for visualization and text for this script can be found on github^[https://github.com/HannesOberreiter/AMEB2020_dictyocotyle_coeliaca].
 
 # Results
 
