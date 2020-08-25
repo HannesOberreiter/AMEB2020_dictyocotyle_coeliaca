@@ -108,18 +108,18 @@ knitr::kable(
 
 ## Visualization
 
-Graphical representation of the results was performed with R [@r2020] and the packages [@tidyverse2019; @treeio2020; @ggtree2020; @ape2019]. The script for visualization and text for this script can be found on github^[https://github.com/HannesOberreiter/AMEB2020_dictyocotyle_coeliaca].
+Graphical representation of the results was performed in R [@r2020] with the packages [@tidyverse2019; @treeio2020; @ggtree2020; @ape2019]. The script for visualization and the text for this script can be found on github^[https://github.com/HannesOberreiter/AMEB2020_dictyocotyle_coeliaca].
 
 # Results
 
-Because of the low length of fragments we did stop the minION sequencing early to save resources for the other groups in the course, the report for the minION sequencing is online and publicly available as PDF on github^[https://github.com/chrishah/AMEB_2020_practical/blob/master/assembly-long/MinION/sequencing_reports/minion_report_Dceol_010720.pdf].
+We did stop the minION sequencing early due to the short length of the produced fragments, which did not really exceed Illumina reads, and to save resources for the other groups in the course. The report for the minION sequencing is online and publicly available as PDF on github^[https://github.com/chrishah/AMEB_2020_practical/blob/master/assembly-long/MinION/sequencing_reports/minion_report_Dceol_010720.pdf].
 The analysis with BUSCO did show a lower completeness for the locally available Illumina assembly of *D. coeliaca* paired with our ONP reads from the practical course. Therefore, we only used the local assembly from Illumina sequences, without the generated ONP reads, for further analysis. The BUSCO analysis for the assembly of *L. minor*, which only included the minION data and was done by another group in the course, did result in 87 BUSCO genes and was included in the further analysis.
 
 ```{r genetree, fig.cap="Singel gene phylogenetic trees for genes available for all given taxa.", echo=FALSE, fig.width = 2}
 knitr::include_graphics("data/gene_tree.pdf")
 ```
 
-In total 313 BUSCO genes were used in the supermatrix to calculate the phylogenetic tree and four of these genes were available throughout all taxa, see fig. \@ref(fig:genetree). In none of the calculated single gene trees the Monogenean represent a monophyletic group. The resulting phylogenetic tree for the supermatrix with all BUSCO genes can be seen in fig. \@ref(fig:tree). It shows high bootstrap coverage for all nodes expect one internal clade node, but did not influence the phylogenetic position of the groups in question. 
+In total 313 BUSCO genes were used in the supermatrix to calculate the phylogenetic tree and four of these genes could be found in all of the taxa, see fig. \@ref(fig:genetree). None of the calculated single gene trees show the Monogenean as a monophyletic group. The resulting phylogenetic tree for the supermatrix with all BUSCO genes can be seen in fig. \@ref(fig:tree). It shows high bootstrap coverage for all nodes expect one internal clade node, but did not influence the phylogenetic position of the groups in question. 
 
 The result for the parasitic groups indicates Monopisthocotylea (Monogenea) as the most basal clade and Cestoda as sister group to the monophyletic group of Trematoda and Polypisthocotylea (Monogenea). 
 
@@ -130,9 +130,9 @@ knitr::include_graphics("data/tree.pdf")
 
 # Discussion
 
-The cause why our minION reads did not improve the quality of the local available *D. coeliaca* Illumina assembly could not be identified but was probably a high fragmentation of the DNA during the library preparation, as the DNA assessment after extraction did look good, see fig. \@ref(fig:tapestation). This resulted in very short reads with low coverage did not add any value to the Illumina assembly when using the ONP reads as alignment in scaffolding.
+The exact reason why our minION reads did not improve the quality of the locally available *D. coeliaca* Illumina assembly could not be identified. One possible reason could be the unintentional fragmentation of the DNA during library preparation, as the DNA assessment after extraction did show long fragments, which should have resulted in long reads, see fig. \@ref(fig:tapestation). The assumed fragmentation led to very short reads with low coverage and did not add any value to the Illumina assembly when using the ONP reads as alignment in scaffolding.
 
-Our resulting tree does not correspond to the currently proposed hypotheses of the major parasitic groups, see figure \@ref(fig:trees). The phylogeny shows the group of Monogenea as paraphyletic, which is in accordance with new molecular based findings [@littlewood1999; @olson2001; @perkins2010; @laumer2014]. Contrasting previous studies which did group Monogenea in a monophylum, for example with morphological features alone or rRNA, with their evolutionary history [@lockyer2003; boeger1993]. Our findings of the potential evolutionary history of the Neodermata are differs from previous studies. 
+Our resulting tree does not correspond with the classical hypotheses of the major parasitic groups, see figure \@ref(fig:trees), as it shows the group of Monogenea as paraphyletic. This ,however, is in accordance with new molecular based findings [@littlewood1999; @olson2001; @perkins2010; @laumer2014]. Previous studies, which did group Monogenea in a monophylum, did this on the basis of morphological features alone or using rRNA to infer the evolutionary history [@lockyer2003; boeger1993]. Our findings of the potential evolutionary history of the Neodermata differs from previous studies. 
 
 (ref:trees-label) Three competing hypotheses of the evolution of Neodermata previously found supported by molecular data. a) [@lockyer2003], b) [@perkins2010], and c) [@littlewood1999; @olson2001; @laumer2014]. Image from practical course worksheet available at [google.doc](https://docs.google.com/document/d/1h2fNYv-hyIJfBnAZd0uEgk6zkS6bFyiQgQISwl4Qfh8).
 ```{r trees, fig.cap="(ref:trees-label)", echo=FALSE}
