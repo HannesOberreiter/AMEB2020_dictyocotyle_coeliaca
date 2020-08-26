@@ -1,5 +1,5 @@
 ---
-title: "Evidence for Paraphyletic Phylogeny of Monogenea using modern NGS Data and Multigene Analysis"
+title: "Evidence for paraphyly of the Monogenea using modern NGS data and multigene analysis"
 subtitle: 'University of Graz, Institut for Biology, AMEB2020'
 author: "Hannes Oberreiter & Anna Dünser"
 date: "July-August, 2020"
